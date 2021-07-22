@@ -8,6 +8,11 @@
 
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	
+	<link rel="stylesheet" type="text/css"
+	th:href="@{/fontawesome/all.css}">
+	<link rel="stylesheet" type="text/css"
+	th:href="@{/style.css}">
 <!-- /META-INF/resources/webjars/bootstrap/4.3.1/css/bootstrap.min.css -->
 
 <script type="text/javascript" th:src="@{webjars/jquery/jquery.min.js}"></script>
@@ -102,13 +107,27 @@
 				<tbody>
 						<tr th:each="users : ${listUsers}">
 						 <td>[[${users.id}]]</td>
-						 <td></td>
+						 <td><span class="fas fa-portrait fa-3x icon-silver"></span></td>
 						 <td>[[${users.email}]]</td>
 						 <td>[[${users.firstName}]]</td>
 						 <td>[[${users.lastName}]]</td>
 						  <td>[[${users.roles}]]</td>
-						  <td>[[${users.enabled}]]</td>
-						  <td>Edit &nbsp; Delete</td>
+						  <td>
+						   <a th:if="${users.enabled == true}" class="fas fa-check-circle fa-2x icon-green" href="" ></a>
+						   
+						  
+						  <a th:if="${users.enabled == false}"class="fas fa-check-circle fa-2x icon-dark" href=""></a>
+						  </td>
+						  <td>
+						 <a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${users.id}}"
+						   
+						   title="Edit this user" ></a>  
+						  
+						  &nbsp; 
+						  
+						 <a class="fas fa-trash fa-2x icon-dark " href=""></a>
+						  
+						  </td>
 						</tr>
 				</tbody>
 			</table>
