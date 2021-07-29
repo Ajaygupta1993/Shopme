@@ -171,26 +171,26 @@
 
 			<nav>
 				<ul class="pagination justify-content-center">
-				    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}"><a class="page-link" th:href="@{'/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword !=null ? '&keyword=' + keyword : ''}}">
-					First</a>
+				    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+				    <a th:replace="fragments :: page_link(1, 'First')"></a>
 					</li>
-					<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}"><a class="page-link" th:href="@{'/users/page/' + ${currentPage -1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword !=null ? '&keyword=' + keyword : ''}}">
-					Previous</a>
+					<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+					<a th:replace="fragments :: page_link(${currentPage - 1}, 'Previous')"></a>
 					</li>
 					<li th:class="${currentPage != i ? 'page-item' : 'page-item active'}" th:each="i : ${#numbers.sequence(1,totalPage)}">
-					<a class="page-link" th:href="@{'/users/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword !=null ? '&keyword=' + keyword : ''}}">[[${i}]]</a>
+					<a th:replace="fragments :: page_link(${i}, ${i})"></a>
 					
 					
 					</li>
 					
 					
 					<li th:class="${currentPage < totalPage ? 'page-item' : 'page-item disabled'}">
-					<a class="page-link" th:href="@{'/users/page/' + ${currentPage +1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword !=null ? '&keyword=' + keyword : ''}}">Next</a>
+					<a th:replace="fragments :: page_link(${currentPage + 1}, 'Next')"></a>
 					
 					</li>
 					
 					<li th:class="${currentPage < totalPage ? 'page-item' : 'page-item disabled'}">
-					<a class="page-link" th:href="@{'/users/page/' + ${totalPage} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword !=null ? '&keyword=' + keyword : ''}}">Last</a>
+					<a th:replace="fragments :: page_link(${totalPage}, 'Last')"></a>
 					
 					</li>
 				</ul>
