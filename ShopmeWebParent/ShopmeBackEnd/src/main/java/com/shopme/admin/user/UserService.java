@@ -2,6 +2,7 @@ package com.shopme.admin.user;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -28,6 +29,10 @@ public class UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	public User getUserByEmail(String email) {
+		return userRepo.getUserByEmail(email);
+	}
 
 	public List<User> listAll() {
 
@@ -110,5 +115,23 @@ public class UserService {
 	
 	public void updateUserEnabledStatus(Integer id, boolean enable) {
 		userRepo.updateEnableStatus(id, enable);
+	}
+
+	public User updateAccount(User userInForm) {
+		System.out.println("updateAccount:::::::Started");
+		User userInDb = userRepo.findById(userInForm.getId()).get();
+		System.out.println("userInDb:::::::::::Object" + userInDb);
+		if (!userInForm.getPassword().isEmpty()) {
+			userInDb.setPassword(userInForm.getPassword());
+			encodePassword(userInDb);
+		}
+		if (userInForm.getPhotos() != null) {
+			userInDb.setPhotos(userInForm.getPhotos());
+		}
+		System.out.println(":::::::::::" + userInForm.getLastName());
+		userInDb.setFirstName(userInForm.getFirstName());
+		userInDb.setLastName(userInForm.getLastName());
+		return userRepo.save(userInDb);
+
 	}
 }
