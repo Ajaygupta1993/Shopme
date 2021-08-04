@@ -46,7 +46,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		System.out.println("configure:::::::::::HttpSecurity http11111111111111");
-		http.authorizeRequests().anyRequest().authenticated()
+		http.authorizeRequests()
+		.antMatchers("/users/**").hasAuthority("Admin")
+		.anyRequest().authenticated()
 		.and()
 		.formLogin()
 		.loginPage("/login")
